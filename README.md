@@ -4,4 +4,9 @@ The following languages will be used
 - JavaScript
 - React
 - SQL
-- Node
+- NodeJS
+- SCSS (compiled into css)
+
+
+For extra documentation contact judeubah789@gmail.com :)
+

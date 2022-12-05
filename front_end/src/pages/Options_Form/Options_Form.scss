@@ -1,0 +1,58 @@
+@import '../../components/Data/brand.scss';
+
+
+@keyframes gradient-move {
+    0% {
+      background-position: 0% 50%;
+    }
+  
+    50% {
+      background-position: 100% 50%;
+    }
+  
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+.failed_form_validation{
+    font-size: 0.5rem;
+    color: $brand_red;
+}
+
+.options_form__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgba($color: $brand_black, $alpha: 0.6);
+    animation: gradient-move 5s infinite;
+    background-size: 300% 300% !important;
+    transition: all 0.5s ease;
+}
+
+.options_form__content{
+    width: 40%;
+    padding: 3rem 3rem;
+    border-radius: 2.5rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: $brand_white;
+}
+.form_logo{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 3rem;
+    .selected_brand{
+        font-size: 2rem;
+        font-weight: 600;
+        color: $brand_orange;
+    }
+}
+
+.options_form{
+    display: flex;
+    flex-direction: column;
+    background-color: $brand_white;
+    width: 100%;
+}

@@ -1,0 +1,17 @@
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-sizing: border-box;
+}
+
+$brand_black: #011627;
+$brand_white:#fdfffc;
+$brand_cyan:#2ec4b6;
+$brand_red:#e71d36;
+$brand_orange:#ff9f1c;
+
+html, body{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: $brand_white;
+}

@@ -1,0 +1,34 @@
+.image_tab{
+    width: 40%;
+    margin-bottom: 1rem;
+    background-size: cover;
+    background-position:  90%;
+    background-repeat: no-repeat;
+    background-color: #151231;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+    align-items: center;
+    height: 50vh;
+    flex-direction: column;
+   
+}
+
+.tab_description{
+    color: #fdfffc;
+    font-weight: bold;
+    font-size: 2.5rem;
+    z-index: 1;
+    justify-self: center;
+}
+
+.image_tab__filter{
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+}
+
+

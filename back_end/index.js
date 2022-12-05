@@ -23,6 +23,32 @@ app.get('/', (req, res, next)=>{
     })
 })
 
+app.get('/specific-search/:data', (req, res, next)=>{
+    let {params:{data}} = req;
+    data = JSON.parse(data);
+    let query = `select * from ourproducts where`;
+    const queryArray = [];
+
+
+    let index = 1;
+    for (const [selector, argument] of Object.entries(data)){
+        if(selector !== 'Min-Price' && selector !== 'Max-Price' && argument !== 'none' && argument !== 'Any'){
+            query += `${index === 1 ? '' : ' and'} ${selector} = $${index}`
+            queryArray.push(argument)
+            index ++
+        }
+    } 
+    console.log(query)
+    methods.getSpecific(query, queryArray)
+    .then((response)=>{
+        res.status(200).send(response)
+    })
+    .catch((err)=>{
+        res.status(500).send(err)
+    })
+   
+})
+
 app.post('/stock', (req, res, next)=>{
     methods.createItem(req.body)
     .then((response)=>{

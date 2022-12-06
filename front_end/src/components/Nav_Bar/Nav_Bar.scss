@@ -1,0 +1,47 @@
+@import '../Data/brand.scss';
+.Nav_Bar{
+    padding: 1.5rem 8rem;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    width: 100%;
+    height: fit-content;
+    background-color: $brand_white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+    &::after{
+        content: '';
+        position: absolute ;
+        bottom: 0%;
+        background: linear-gradient(90deg,$brand_orange 0, $brand_red 100%);
+        width: 100%;
+        left: 0;
+        height: 10%;
+        background-size: 300% 300% !important;
+        animation: gradient-move 3s infinite;
+        transition: all ease-in-out;
+      }
+      @media screen and (max-width: 1020px) {
+        padding: 1.5rem 1rem;
+      }
+}
+
+.Nav_Bar__logo{
+    width: 20%;
+    @media screen and (max-width: 1020px) {
+        // width: 0%;
+    }
+}
+
+.Nav_Bar_current_store{
+    font-weight: 400;
+}
+
+.Nav_Bar_store{
+    font-weight: 600;
+    color: $brand_red;
+}

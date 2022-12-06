@@ -1,3 +1,47 @@
+@import '../../components/Data/brand.scss';
+
+
+.results_page{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.results_page__results{
+    height: 80%;
+}
+
+
+
+.results_table__container{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 1rem 0;
+    border-radius: 4px;
+    max-height: 80%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: $brand_white;
+}
+.results_table{
+    background-color: $brand_white;
+}
+.routing_buttons{
+    width: 100%;
+    padding: 1rem 3rem;
+}
+
+
+.page_button{
+    border-radius: 50%;
+    color:$brand_white;
+    display: inline-block;
+    cursor: pointer;
+    padding: .2rem .4rem;
+    border: none;
+    background-color: $brand_black;
+}
 .active_page{
-    color:red
+    color: $brand_white;
+    background-color: $brand_red;
 }

@@ -9,9 +9,34 @@ $brand_cyan:#2ec4b6;
 $brand_red:#e71d36;
 $brand_orange:#ff9f1c;
 
-html, body{
+html, body, main,#root{
     height: 100%;
     padding: 0;
     margin: 0;
     background-color: $brand_white;
 }
+
+section{
+    background-position: center;
+    background-repeat: repeat;
+    height: fit-content;
+}
+
+
+@keyframes gradient-move {
+    0% {
+      background-position: 0% 50%;
+    }
+  
+    50% {
+      background-position: 100% 50%;
+    }
+  
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+$tabs_width: 35%;
+$tabs_height: 60%;
+$tabs_padding: 8rem 0;

@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import './item_tile.scss'
-export const Item_tile = ({data:{item_code, gender, brand, product_type, colour, mens_sizes, ladies_sizes,
-    boys_sizes, girls_sizes, price, location, quantity}, chosen_store, getStock, port, volume, shade, imgNum, visibility, index}) => {
+export const Item_tile = ({data:{item_code, gender, brand, product_type, colour, size, price, location, quantity}, chosen_store, getStock, port, volume, shade, imgNum, visibility, index}) => {
         
 
 
-    const size = [mens_sizes, ladies_sizes, boys_sizes, girls_sizes].filter((sz)=>{
-        return sz !== null;
-    })
+  
 
     const deleteItem_ = () =>{
 
@@ -44,7 +41,7 @@ export const Item_tile = ({data:{item_code, gender, brand, product_type, colour,
             {price}
         </td>
         <td>
-            {chosen_store.toLowerCase() === location.toLowerCase() ? 'Yes': 'No'}
+            {typeof(location) ==='String' ? chosen_store.toLowerCase() === location.toLowerCase() ? 'Yes': 'No' : 'Yes'}
         </td>
         <td>
             <div className="quantity_column">

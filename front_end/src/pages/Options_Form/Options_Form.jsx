@@ -1,19 +1,28 @@
 import React, {useState} from "react";
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { choices } from "../../components/Data";
 import { Option_Picker } from "../../components/Option_Picker/Option_Picker";
 import './Options_Form.scss';
-import { brand_colours } from '../../components/Data/index';
-export const Option_Form = ({selections, setSelections, redundantOptions, getStock})=>{
-    const [backCols, setBackCols] = useState([brand_colours[2], brand_colours[1]])
-
-   
-    const handleSubmit = (e)=>{
+import { useEffect } from "react";
+export const Option_Form = ({selections, setSelections, getStock, backgroundImage, inventory})=>{
+    const history = useHistory()
+    const [shallowSelections, setShallowSelections] = useState({})
+    console.log(selections)
+    useEffect(()=>{
+        const IMMUTABLE_DEEP_COPY = JSON.parse(JSON.stringify(selections));
+        for (const x in IMMUTABLE_DEEP_COPY){
+            if(IMMUTABLE_DEEP_COPY[x] === 'Any' || IMMUTABLE_DEEP_COPY[x] === 'none'){
+                delete IMMUTABLE_DEEP_COPY[x]
+            }
+        }
+        setShallowSelections(IMMUTABLE_DEEP_COPY)
+   }, [])
+    const handleSubmit = async (e)=>{
         e.preventDefault();
-        console.log(selections)
-        getStock();
-        
+        await getStock().then(()=>history.push('/search-results'))
     }
+
+
 
     const validateMoney = (amount, id)=>{
         if(!amount.length){
@@ -118,62 +127,73 @@ export const Option_Form = ({selections, setSelections, redundantOptions, getSto
             break;
     }
     return ( 
-        <section className="options_form__container" style={{background: `linear-gradient(45deg, transparent, rgb(${backCols[0]}),rgb(${backCols[1]}), transparent)`}}>
+        <section className="options_form__container" style={{backgroundImage: `url(${backgroundImage})`}}>
             <div className="options_form__content" >
                 <div className="form_logo">
                 <img src={`/assets/logos/StylishYou_Logo_${logo}.png`} alt={`StylishYou :${logo}'s logo`} />
-                {selections.brand && (<p className="selected_brand">{selections.brand}</p>)}
+                {selections.brand && (<p className="selected_brand">{selections.brand !== 'none' ? selections.brand : ''}</p>)}
                 </div>
 
                 <form onSubmit={handleSubmit} className="options_form">
+                {!shallowSelections.gender &&  (
+                    <Option_Picker
+                    optionGroup={'gender'}
+                    options={ choices.gender}
+                    handleChange={handleChange}
+                    
+                    selections={selections}
+                    label={true}
+                    />
+                )}
+
+                {!shallowSelections.product_type && (
+                    <Option_Picker
+                    optionGroup={'product_type'}
+                    options={ ['Ladies', 'Girls'].includes(selections.gender) ? [...choices.product_type[0], ...choices.product_type[1]] : [...choices.product_type[0]]}
+                    handleChange={handleChange}
+                    
+                    label={true}
+                    selections={selections}
+                    />
+                )}
 
                 <Option_Picker
                 optionGroup={'size'}
                 options={ selections.product_type ==='Shoes' ? [...choices.shoe_sizes] : [...choices.clothes_sizes]}
                 handleChange={handleChange}
-                chosen={false}
+                
                 selections={selections}
                 label={true}
                 />
-                {!redundantOptions.includes('gender') &&  (
-                    <Option_Picker
-                    optionGroup={'gender'}
-                    options={ choices.gender}
-                    handleChange={handleChange}
-                    chosen={false}
-                    selections={selections}
-                    label={true}
-                    />
-                )}
-                {!redundantOptions.includes('product_type') && (
-                    <Option_Picker
-                    optionGroup={'product_type'}
-                    options={ ['Ladies', 'Girls'].includes(selections.gender) ? [...choices.product_type[0], ...choices.product_type[1]] : [...choices.product_type[0]]}
-                    handleChange={handleChange}
-                    chosen={false}
-                    label={true}
-                    selections={selections}
-                    />
-                )}
-                {!redundantOptions.includes('brand') && (
+
+                <Option_Picker
+                optionGroup={'colour'}
+                options={choices.Colour}
+                handleChange={handleChange}
+                
+                selections={selections}
+                label={true}
+                />
+                
+
+                <input className="options_picker" placeholder="Min Price: £0.01" type="text" name={'Min-Price'} id="Min-Money" onChange={handleChange} />
+                <input className="options_picker" placeholder="Max Price: £5,000" type="text" name={'Max-Price'} id="Max-Money"  onChange={handleChange} />
+                {!shallowSelections.brand && (
                     <Option_Picker
                     optionGroup={'brand'}
                     options={choices.brands}
                     handleChange={handleChange}
-                    chosen={false}
+                    
                     selections={selections}
                     label={true}
                     />
                 )}
 
-                <input className="options_picker" placeholder="Min Price: £0.01" type="text" name={'Min-Price'} id="Min-Money" onChange={handleChange} />
-                <input placeholder="Max Price: £5,000" type="text" name={'Max-Price'} id="Max-Money"  onChange={handleChange} />
-
-                <input type="submit" name={'submit'} value="Get results"/>
+                <input className="routing_btn" type="submit" name={'submit'} value="Find"/>
+                <Link className="routing_btn__secondary" to='/'>{`<< Home`}</Link>
                 </form>
-
+                <hr />
             </div>
-            <Link to='/'>Home</Link>
         </section>
     )
 }

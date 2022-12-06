@@ -1,4 +1,11 @@
+@import '../Data/brand.scss';
 .options_picker{
     z-index: 2;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.667rem;
+    border: 1px solid $brand_cyan;
+    border-radius: 4px;
+    padding: 7px 9.5px 9px 9.5px;
+    outline: none;
+    width: 100%;
 }
+

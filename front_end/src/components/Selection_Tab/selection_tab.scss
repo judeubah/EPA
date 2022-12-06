@@ -1,17 +1,17 @@
+@import '../Data/brand.scss';
 .selection_tab{
-    width: 40%;
+    width: $tabs_width;
     margin-bottom: 1rem;
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
-    background-color: #151231;
     position: relative;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 4rem 0;
+    padding: $tabs_padding;
     flex-direction: column;
-    height: 50vh;
+    height: $tabs_height;
     
 }
 
@@ -30,10 +30,11 @@
     height: 100%;
 }
 
-.show_location{
-    display: block;
+.selectors_container{
+    width: 40%;
+    z-index: 2;
+    display: flex;
+    justify-self: center;
+    margin-top: 3rem;
 }
 
-.hide_location{
-    display: none;
-}

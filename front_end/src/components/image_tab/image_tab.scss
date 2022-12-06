@@ -1,16 +1,17 @@
+@import '../Data/brand.scss';
 .image_tab{
-    width: 40%;
+    width: $tabs_width;
     margin-bottom: 1rem;
     background-size: cover;
     background-position:  90%;
     background-repeat: no-repeat;
-    background-color: #151231;
     position: relative;
     display: flex;
     justify-content: flex-end;
     cursor: pointer;
+    padding: $tabs_padding;
     align-items: center;
-    height: 50vh;
+    height: $tabs_height;
     flex-direction: column;
    
 }

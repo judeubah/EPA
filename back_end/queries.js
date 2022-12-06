@@ -1,7 +1,7 @@
 const pool = require('./db');
 
 
-const getInventory = () =>{
+const getDB = () =>{
     return new Promise((resolve, reject)=>{
         pool.query('select * from ourproducts', (err, results)=>{
             if(err){
@@ -66,7 +66,7 @@ const item_code = parseInt(id);
 }
 
 module.exports = {
-    getInventory,
+    getDB,
     createItem,
     clearDatabase,
     deleteItem,

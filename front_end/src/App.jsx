@@ -5,16 +5,33 @@ import { Home } from './pages/Home/Home';
 import { choices, brand_colours } from './components/Data';
 import './components/Data/brand.scss'
 import { Option_Form } from './pages/Options_Form/Options_Form';
+import { Nav_Bar } from './components/Nav_Bar/Nav_Bar';
 function App() {
   const [inventory, setInventory] = useState(false);
-  const [selections, setSelections] = useState({location:'London'});
-  const [redundantOptions, setRedundantOptions] = useState([])
+  const [selections, setSelections] = useState({});
+  const [dataBase, setDataBase] = useState([]);
+  const backgroundImage = '/assets/main_background/background.jpg';
   const PORT = 1960;
 
+  useEffect(()=>{
+    const db_maintain = async()=>{
+      const _db = await fetch(`http://localhost:1960/`)
+      .then((response)=>{
+        return response.text()
+      })
+      if(_db.length){
+       getDb()
+      }
+    }
+    db_maintain();
+  }, [])
 
-
-  const getStock = () =>{
-    fetch(`http://localhost:1960/specific-search/${JSON.stringify(selections)}`)
+  const getStock = async (storedSelections=false) =>{
+    let opts = selections
+    if(storedSelections){
+      opts = storedSelections
+    }
+   return fetch(`http://localhost:1960/specific-search/${JSON.stringify(opts)}`)
     .then((response)=>{
       return response.text()
     })
@@ -23,7 +40,15 @@ function App() {
     })
   }
 
-
+  const getDb = () =>{
+      fetch(`http://localhost:1960`)
+      .then((response)=>{
+        return response.text()
+      })
+      .then((data)=>{
+        setDataBase(JSON.parse(data));
+      })    
+    }
 
   const generateDB = async () =>{
     const female = ['Ladies', 'Girls'];
@@ -59,7 +84,7 @@ function App() {
     //post to db via backend
 
   
-      fetch(`http://localhost:${PORT}/stock`, {
+    return  fetch(`http://localhost:${PORT}/stock`, {
         method: 'POST',
         headers:{
           'Content-Type': 'application/json'
@@ -80,33 +105,32 @@ function App() {
       method:'DELETE'
     })
     .then((response)=> response.text())
-    .then((data)=>getStock())
+    .then((data)=>getDb())
   }
 
-  const randomDb = () =>{
+  const randomDb = async () =>{
     for (let x = 0; x < 200; x++){
-      generateDB()
+      await generateDB();
     }
+    getDb();
   }
 
   return (
     <>
-      <nav>
-        
-      </nav>
+      <Nav_Bar
+      selections={selections}
+      dataBase={dataBase}
+      randomDb={randomDb}
+      clearDb={clearDb}/>
       <main>
       <Switch>
         <Route exact path = {'/'}>
           <Home 
-          inventory={inventory}
-          clearDb={clearDb}
-          generateDB={generateDB}
           selections={selections}
           setSelections={setSelections}
-          randomDb={randomDb}
           choices={choices}
           filters={brand_colours}
-          setRedundantOptions={setRedundantOptions}
+          backgroundImage={backgroundImage}
           />
         </Route>
         <Route exact path = {'/search-results'}>
@@ -115,17 +139,22 @@ function App() {
             inventory={inventory}
             PORT={PORT}
             getStock={getStock}
+            selections={selections}
+            setSelections={setSelections}
+            backgroundImage={backgroundImage}
            />
         </Route>
         <Route exact path = {'/options'}>
           <Option_Form
           selections={selections}
           setSelections={setSelections}
-          redundantOptions={redundantOptions}
           getStock={getStock}
+          inventory={inventory}
+          backgroundImage={backgroundImage}
           />
         </Route>
       </Switch>
+      <a href="https://www.vecteezy.com/free-vector/fashion-icon">Fashion Icon Vectors by Vecteezy</a>
       </main>
     </>
   );

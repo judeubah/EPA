@@ -13,7 +13,7 @@ app.use((req, res, next)=>{
 })
 
 app.get('/', (req, res, next)=>{
-    methods.getInventory()
+    methods.getDB()
     .then((response) =>{
         res.status(200).send(response)
     }
@@ -26,26 +26,47 @@ app.get('/', (req, res, next)=>{
 app.get('/specific-search/:data', (req, res, next)=>{
     let {params:{data}} = req;
     data = JSON.parse(data);
-    let query = `select * from ourproducts where`;
-    const queryArray = [];
-
-
-    let index = 1;
-    for (const [selector, argument] of Object.entries(data)){
-        if(selector !== 'Min-Price' && selector !== 'Max-Price' && argument !== 'none' && argument !== 'Any'){
-            query += `${index === 1 ? '' : ' and'} ${selector} = $${index}`
-            queryArray.push(argument)
-            index ++
+    console.log(data)
+    if(!Object.keys(data).filter((elem)=>data[elem] !== 'none' && data[elem] !== 'Any').length ){
+        console.log('I selected everything');
+        methods.getDB()
+        .then((response) =>{
+            res.status(200).send(response)
         }
-    } 
-    console.log(query)
-    methods.getSpecific(query, queryArray)
-    .then((response)=>{
-        res.status(200).send(response)
-    })
-    .catch((err)=>{
-        res.status(500).send(err)
-    })
+        )
+        .catch((err)=>{
+            res.status(500).send(err)
+        })
+    }
+    else{
+        console.log(Object.keys(data))
+        let query = `select * from ourproducts where`;
+        const queryArray = [];
+        
+    
+        let index = 1;
+        for (const [selector, argument] of Object.entries(data)){
+            if(selector !== 'Min-Price' && selector !== 'Max-Price' && argument !== 'none' && argument !== 'Any'){
+                query += `${index === 1 ? '' : ' and'} ${selector} = $${index}`
+                queryArray.push(argument)
+                index ++
+            }
+            if(selector === 'Min-Price' || selector === 'Max-Price'){
+                if(argument !== null){
+    
+                }
+            }
+        } 
+        console.log(query, queryArray)
+        methods.getSpecific(query, queryArray)
+        .then((response)=>{
+            res.status(200).send(response)
+        })
+        .catch((err)=>{
+            res.status(500).send(err)
+        })
+
+    }
    
 })
 

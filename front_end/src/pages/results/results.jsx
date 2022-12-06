@@ -1,15 +1,33 @@
 import React, {useState, useEffect} from 'react';
 import { Item_tile } from '../../components/item_tile/item_tile';
+import { Link, useHistory } from 'react-router-dom'
 import './results.scss'
-export const Results_Page = ({location, PORT, inventory, getStock}) => {
+import { No_RESULTS } from '../../components/No_Results/no_results';
+export const Results_Page = ({location, PORT, inventory, backgroundImage, getStock, selections, setSelections}) => {
+const history = useHistory();
+    // console.log(selections, 'results')
 
-
+useEffect(()=>{
+    const INVENTORY_MAINTAIN = async () =>{
+        await getStock();
+    }
+    INVENTORY_MAINTAIN();
+}, [])
 
   const [pageNum, setPageNum] = useState(1)
   const [results_cap, setResults_cap] = useState(10)
   
-
-
+const handleRedirect = ()=> {
+    console.log('jude')
+    setSelections({
+        ...selections,
+        gender:'none',
+        product_type:'none',
+        size:'none',
+        brand:'none'
+    })
+    return history.push('/options')
+}
 
   const getShade = (vol) =>{
     let colour;
@@ -40,9 +58,9 @@ export const Results_Page = ({location, PORT, inventory, getStock}) => {
     setResults_cap(num)
   }
   return (
-    <div className="results_page">
+    <section className="results_page" style={{backgroundImage:`url(${backgroundImage})`}}>
         
-     {inventory ? (
+     {inventory.length > 0 ? (
     <div className="results_page__results">
         <div className="results_different_pages" >{[...Array(Math.ceil(inventory.length/results_cap)).keys()].map((num=>num+1)).map((page)=>(
             <button className={pageNum === page ? "active_page page_button" : "page_button"} onClick={()=>handlePage(page)}>{page}</button>
@@ -54,13 +72,14 @@ export const Results_Page = ({location, PORT, inventory, getStock}) => {
 
         <div className="capacity_options">
             <input type="radio" name='capicitor'  onChange={()=>handleCapacityChange(5)}/>5
-            <input type="radio" name='capicitor' checked onChange={()=>handleCapacityChange(10)}/>10
+            <input type="radio" name='capicitor'  onChange={()=>handleCapacityChange(10)}/>10
             <input type="radio" name='capicitor' onChange={()=>handleCapacityChange(20)}/>20
             <input type="radio" name='capicitor' onChange={()=>handleCapacityChange(50)}/>50
         </div>
         </div>
-        <table>
-        <tbody>
+        <div className="results_table__container">
+        <table className='results_table'>
+        <tbody className='results_table__body'>
             <tr>
             <th>
                 Item Image
@@ -89,6 +108,9 @@ export const Results_Page = ({location, PORT, inventory, getStock}) => {
             <th>
                 Location
             </th>      
+            <th>
+                Remove
+            </th>      
             </tr>
             {inventory.map((item, index)=>(
             <Item_tile data={item}
@@ -106,9 +128,19 @@ export const Results_Page = ({location, PORT, inventory, getStock}) => {
 
         </tbody>
         </table>
-    </div>
-     ) : 'No Stock'}
+        </div>
+        
+        <div className="routing_buttons">
+            <div onClick={handleRedirect} className="routing_btn">{`<< Back`}</div>
+            <Link className="routing_btn__secondary" to='/'>{`Home`}</Link>
+        </div>
 
     </div>
+     ) : 
+     <No_RESULTS
+     handleRedirect={handleRedirect}/>
+     }
+
+    </section>
   );
 }

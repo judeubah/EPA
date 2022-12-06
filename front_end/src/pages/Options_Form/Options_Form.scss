@@ -1,21 +1,8 @@
 @import '../../components/Data/brand.scss';
 
 
-@keyframes gradient-move {
-    0% {
-      background-position: 0% 50%;
-    }
-  
-    50% {
-      background-position: 100% 50%;
-    }
-  
-    100% {
-      background-position: 0% 50%;
-    }
-  }
 .failed_form_validation{
-    font-size: 0.5rem;
+    font-size: 0.75rem;
     color: $brand_red;
 }
 
@@ -24,22 +11,23 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: rgba($color: $brand_black, $alpha: 0.6);
-    animation: gradient-move 5s infinite;
-    background-size: 300% 300% !important;
     transition: all 0.5s ease;
+    padding: 5rem 0;
 }
 
 .options_form__content{
     width: 40%;
-    padding: 3rem 3rem;
-    border-radius: 2.5rem;
+    padding: 2rem 3rem;
+    border-radius: 4px;
+    height: 70%;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     background-color: $brand_white;
 }
 .form_logo{
     width: 100%;
+    img{
+      width: 20%;
+    }
     display: flex;
     justify-content: space-between;
     padding-bottom: 3rem;
@@ -50,9 +38,38 @@
     }
 }
 
+
 .options_form{
     display: flex;
     flex-direction: column;
     background-color: $brand_white;
     width: 100%;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid $brand_black;
+  margin: 20px 0;
+}
+
+.routing_btn, .routing_btn__secondary{
+  background: $brand_cyan;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  color: $brand_white;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 10px 0;
+  width: 100%;
+  font-family: "Open Sans", sans-serif;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  display: block;
+}
+.routing_btn__secondary{
+  background: $brand_orange;
 }

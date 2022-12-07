@@ -28,7 +28,6 @@ app.get('/specific-search/:data', (req, res, next)=>{
     data = JSON.parse(data);
     console.log(data)
     if(!Object.keys(data).filter((elem)=>data[elem] !== 'none' && data[elem] !== 'Any').length ){
-        console.log('I selected everything');
         methods.getDB()
         .then((response) =>{
             res.status(200).send(response)
@@ -63,7 +62,7 @@ app.get('/specific-search/:data', (req, res, next)=>{
             res.status(200).send(response)
         })
         .catch((err)=>{
-            res.status(500).send(err)
+            res.status(404).send(err)
         })
 
     }

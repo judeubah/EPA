@@ -32,16 +32,38 @@
 
 .Nav_Bar__logo{
     width: 20%;
-    @media screen and (max-width: 1020px) {
-        // width: 0%;
+    @media screen and (min-width: 250px) and (max-width: 760px) {
+        width: 35%;
     }
 }
 
 .Nav_Bar_current_store{
     font-weight: 400;
+    color:$brand_black;
+    @media screen and (min-width: 250px) and (max-width: 760px) {
+        font-size: 0.75rem;
+    }
 }
 
 .Nav_Bar_store{
     font-weight: 600;
     color: $brand_red;
+}
+
+.db_control_btns{
+    display: flex;
+
+    @media screen and (min-width: 250px) and (max-width: 760px) {
+        flex-direction: column;
+    }
+}
+
+.make_btn, .delete_btn{
+    margin-bottom: 0.25rem;
+    margin-left: 0.25rem;
+
+    @media screen and (min-width: 250px) and (max-width: 760px) {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
 }

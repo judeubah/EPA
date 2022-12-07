@@ -1,18 +1,36 @@
 @import '../Data/brand.scss';
-.selection_tab{
+.selection_tab, .image_tab{
     width: $tabs_width;
     margin-bottom: 1rem;
     background-size: cover;
-    background-position: top;
     background-repeat: no-repeat;
     position: relative;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
     padding: $tabs_padding;
     flex-direction: column;
     height: $tabs_height;
     
+    @media screen and (min-width: 250px) and (max-width: 760px) {
+        width: 100%;
+    }
+    @media screen and (min-width: 2000px)  {
+        padding: 15rem 20rem;
+    }
+    
+  
+   
+}
+
+.selection_tab{
+    background-position: top;
+    justify-content: flex-start;
+    @media screen and (min-width: 761px) and (max-width: 1200px) {
+        min-height: 28rem;
+    }
+    @media screen and (min-width: 2000px)  {
+        min-height: 43rem;
+        }
 }
 
 .tab_description{
@@ -21,6 +39,7 @@
     font-size: 2.5rem;
     z-index: 1;
     justify-self: center;
+    text-align: center;
 }
 .selection_tab__filter{
     position: absolute;
@@ -36,5 +55,8 @@
     display: flex;
     justify-self: center;
     margin-top: 3rem;
+    @media screen and (min-width: 250px) and (max-width: 1300px) {
+        width: 70%;
+    }
 }
 

@@ -3,17 +3,25 @@
     width: $tabs_width;
     margin-bottom: 1rem;
     background-size: cover;
-    background-position:  90%;
     background-repeat: no-repeat;
     position: relative;
     display: flex;
-    justify-content: flex-end;
-    cursor: pointer;
     padding: $tabs_padding;
     align-items: center;
     height: $tabs_height;
     flex-direction: column;
-   
+    
+    @media screen and (min-width: 250px) and (max-width: 760px) {
+        width: 100%;
+    }
+    
+}
+
+.image_tab{
+    cursor: pointer;
+    justify-content: flex-end;
+    background-position: 90%;
+
 }
 
 .tab_description{

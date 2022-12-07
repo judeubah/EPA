@@ -1,14 +1,13 @@
 import React from "react";
-import { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import { Option_Picker } from "../Option_Picker/Option_Picker";
 import './selection_tab.scss'
 
 
-export const Selection_tab = ({name, options, setSelections, selections, filter, female_choices}) =>{
-
+export const Selection_tab = ({name, options, setSelections, selections, filter, routing}) =>{
+    const history = useHistory();
     const handleChange = ({target})=>{
         let {name, value} =target;
-        console.log(name, value)
         if(value === 'none'){
             if(name === 'location'){
                 setSelections({
@@ -23,6 +22,11 @@ export const Selection_tab = ({name, options, setSelections, selections, filter,
             ...selections,
             [name]: value
         })
+
+        if(routing && name !== 'location'){
+            console.log('I am a router');
+            history.push('/options')
+        }
         
     }
     

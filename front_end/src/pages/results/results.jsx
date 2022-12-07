@@ -17,16 +17,20 @@ useEffect(()=>{
   const [pageNum, setPageNum] = useState(1)
   const [results_cap, setResults_cap] = useState(10)
   
-const handleRedirect = ()=> {
-    console.log('jude')
-    setSelections({
-        ...selections,
-        gender:'none',
-        product_type:'none',
-        size:'none',
-        brand:'none'
-    })
-    return history.push('/options')
+const handleRedirect = (route)=> {
+    if(route === '/options'){
+        setSelections({
+            ...selections,
+            gender:'none',
+            product_type:'none',
+            size:'none',
+            brand:'none'
+        })
+        return history.push(route)
+    }else{
+        setSelections({});
+        return history.push(route)
+    }
 }
 
   const getShade = (vol) =>{
@@ -43,9 +47,6 @@ const handleRedirect = ()=> {
 
     return colour
 }
-
-
-
 
   const handlePage = (page) =>{
     setPageNum(page);
@@ -71,41 +72,45 @@ const handleRedirect = ()=> {
         </div>
 
         <div className="capacity_options">
+            <p>Items/page:</p>
+            <div className="results_radios">
             <input type="radio" name='capicitor'  onChange={()=>handleCapacityChange(5)}/>5
             <input type="radio" name='capicitor'  onChange={()=>handleCapacityChange(10)}/>10
             <input type="radio" name='capicitor' onChange={()=>handleCapacityChange(20)}/>20
             <input type="radio" name='capicitor' onChange={()=>handleCapacityChange(50)}/>50
+
+            </div>
         </div>
         </div>
         <div className="results_table__container">
         <table className='results_table'>
         <tbody className='results_table__body'>
             <tr>
-            <th>
+            <th className='Big_Screen_Only'>
                 Item Image
             </th>
             <th>
-                Item Type
+                Description
             </th>
             <th>
                 Brand
             </th>      
-            <th>
+            <th className='Big_Screen_Only Non_Tablet' >
                 Colour
             </th>      
-            <th>
+            <th className='Big_Screen_Only Non_Tablet'>
                 Size
             </th>      
-            <th>
+            <th className='Big_Screen_Only Non_Tablet'>
                 Price
             </th>      
-            <th>
-                Available in store?
+            <th className='Big_Screen_Only'>
+                In store?
             </th>      
             <th>
                 Quantity
             </th>      
-            <th>
+            <th className='Big_Screen_Only Non_Tablet'>
                 Location
             </th>      
             <th>
@@ -131,8 +136,8 @@ const handleRedirect = ()=> {
         </div>
         
         <div className="routing_buttons">
-            <div onClick={handleRedirect} className="routing_btn">{`<< Back`}</div>
-            <Link className="routing_btn__secondary" to='/'>{`Home`}</Link>
+            <div onClick={()=>handleRedirect('/options')} className="routing_btn">{`<< Back`}</div>
+            <div onClick={()=>handleRedirect('/')} className="routing_btn__secondary">{`Home`}</div>
         </div>
 
     </div>

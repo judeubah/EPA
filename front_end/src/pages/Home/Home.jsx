@@ -4,7 +4,8 @@ import { Image_tab } from "../../components/image_tab/image_tab";
 import { Selection_tab } from "../../components/Selection_Tab/Selection_Tab";
 import './home.scss';
 export const Home = ({selections, setSelections, choices, filters, backgroundImage}) =>{
-    console.log(selections)
+
+    
     const option_selections = [
        { product_type:[...choices.product_type[0], ...choices.product_type[1]]},
        { brand:[...choices.brands]},
@@ -23,6 +24,7 @@ export const Home = ({selections, setSelections, choices, filters, backgroundIma
                     setSelections={setSelections}
                     selections={selections}
                     filter={filters[index]}
+                    routing={true}
                     />
                 ))}
                 {option_selections.map((item, index)=>(
@@ -32,17 +34,13 @@ export const Home = ({selections, setSelections, choices, filters, backgroundIma
                     setSelections={setSelections}
                     selections={selections}
                     filter={filters[index]}
-                    female_choices={choices.product_type[0]}
+                    routing={true}
                     />
                 ))}
                  </div>
 
           
 
-            <div className="next_pages">
-                <Link to='/search-results'>Results</Link>
-                <Link to='/options'>More options</Link>
-            </div>
         </section>
     )
 }

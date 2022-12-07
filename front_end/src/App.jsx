@@ -154,7 +154,7 @@ function App() {
           />
         </Route>
       </Switch>
-      <a href="https://www.vecteezy.com/free-vector/fashion-icon">Fashion Icon Vectors by Vecteezy</a>
+      <a className='hidden' href="https://www.vecteezy.com/free-vector/fashion-icon">Fashion Icon Vectors by Vecteezy</a>
       </main>
     </>
   );

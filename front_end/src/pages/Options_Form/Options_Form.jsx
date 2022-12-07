@@ -4,10 +4,9 @@ import { choices } from "../../components/Data";
 import { Option_Picker } from "../../components/Option_Picker/Option_Picker";
 import './Options_Form.scss';
 import { useEffect } from "react";
-export const Option_Form = ({selections, setSelections, getStock, backgroundImage, inventory})=>{
+export const Option_Form = ({selections, setSelections, getStock, backgroundImage})=>{
     const history = useHistory()
     const [shallowSelections, setShallowSelections] = useState({})
-    console.log(selections)
     useEffect(()=>{
         const IMMUTABLE_DEEP_COPY = JSON.parse(JSON.stringify(selections));
         for (const x in IMMUTABLE_DEEP_COPY){
@@ -17,6 +16,9 @@ export const Option_Form = ({selections, setSelections, getStock, backgroundImag
         }
         setShallowSelections(IMMUTABLE_DEEP_COPY)
    }, [])
+
+
+   
     const handleSubmit = async (e)=>{
         e.preventDefault();
         await getStock().then(()=>history.push('/search-results'))

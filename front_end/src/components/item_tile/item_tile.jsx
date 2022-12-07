@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './item_tile.scss'
-export const Item_tile = ({data:{item_code, gender, brand, product_type, colour, size, price, location, quantity}, chosen_store, getStock, port, volume, shade, imgNum, visibility, index}) => {
+export const Item_tile = ({data:{item_code, product_description, gender, brand, product_type, colour, size, price, location, quantity}, chosen_store, getStock, port, volume, shade, imgNum, visibility, index}) => {
         
 
 
@@ -18,29 +18,29 @@ export const Item_tile = ({data:{item_code, gender, brand, product_type, colour,
 
     return (
      <tr key={Math.random() * 999} className={`${visibility}`}>
-        <td >
+        <td className='Big_Screen_Only'>
             <div className="product_image__container" 
             style={{ backgroundImage: 
             `url(/assets/product_types/${product_type.replace(/\s/g, '_')}/${imgNum}.jpg)` }}>
                
             </div>
         </td>
-        <td>
-            {gender} {product_type}
+        <td className="shrink_td">
+            {product_description}
         </td>
-        <td>
+        <td className="shrink_td">
             {brand}
         </td>
-        <td>
+        <td className='Big_Screen_Only Non_Tablet'>
             {colour}
         </td>
-        <td>
+        <td className='Big_Screen_Only Non_Tablet'>
             {size}
         </td>
-        <td>
+        <td className='Big_Screen_Only Non_Tablet'>
             {price}
         </td>
-        <td>
+        <td className='Big_Screen_Only '>
             {typeof(location) ==='String' ? chosen_store.toLowerCase() === location.toLowerCase() ? 'Yes': 'No' : 'Yes'}
         </td>
         <td>
@@ -52,11 +52,11 @@ export const Item_tile = ({data:{item_code, gender, brand, product_type, colour,
             {quantity}
             </div>
         </td>
-        <td>
+        <td className='Big_Screen_Only Non_Tablet'>
             {location}
         </td>
         <td onClick={deleteItem_}>
-            Remove
+            <p className="delete_item">Delete</p>
         </td>
      </tr>
     )

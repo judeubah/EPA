@@ -1,5 +1,14 @@
-td{
+@import '../Data/brand.scss';
+td, th{
     padding: 0.5rem 1rem;
+    text-align: left;
+    @media screen and (min-width: 250px) and (max-width: 850px) {
+        padding: 0.125rem 0.25rem;
+    }
+}
+
+.shrink_td{
+    max-width: 3rem;
 }
 
 .show{
@@ -7,6 +16,17 @@ td{
 }
 .hidden{
     display: none;
+}
+
+.Big_Screen_Only{
+    @media screen and (min-width: 250px) and (max-width: 850px) {
+        display: none;
+    }
+}
+.Non_Tablet{
+    @media screen and (min-width: 851px) and (max-width: 1350px) {
+        display: none;
+    }
 }
 
 .quantity_column{
@@ -41,6 +61,9 @@ td{
     background-repeat: no-repeat;
     background-color: #151231;
     position: relative;
+    @media screen and (min-width: 250px) and (max-width: 850px) {
+        width: 100%;
+    }
   }
 
 
@@ -48,4 +71,12 @@ td{
     content: '';
   display: block;
   padding-bottom: 100%;
+  
+  }
+
+  .delete_item{
+    color:$brand_red;
+    margin: 0;
+    font-weight: 500;
+    cursor: pointer;
   }

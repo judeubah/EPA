@@ -12,6 +12,7 @@ function App() {
   const [dataBase, setDataBase] = useState([]);
   const backgroundImage = '/assets/main_background/background.jpg';
   const PORT = 1960;
+  const [allowReq, setAllowReq] = useState(false)
 
   useEffect(()=>{
     const db_maintain = async()=>{
@@ -142,10 +143,13 @@ function App() {
             selections={selections}
             setSelections={setSelections}
             backgroundImage={backgroundImage}
+            allowReq = {allowReq}
            />
         </Route>
         <Route exact path = {'/options'}>
           <Option_Form
+          setAllowReq={setAllowReq}
+          allowReq={allowReq}
           selections={selections}
           setSelections={setSelections}
           getStock={getStock}

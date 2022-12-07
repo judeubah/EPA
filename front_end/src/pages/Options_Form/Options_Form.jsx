@@ -4,10 +4,11 @@ import { choices } from "../../components/Data";
 import { Option_Picker } from "../../components/Option_Picker/Option_Picker";
 import './Options_Form.scss';
 import { useEffect } from "react";
-export const Option_Form = ({selections, setSelections, getStock, backgroundImage})=>{
+export const Option_Form = ({selections, setSelections, getStock, backgroundImage, setAllowReq, allowReq})=>{
     const history = useHistory()
     const [shallowSelections, setShallowSelections] = useState({})
     useEffect(()=>{
+        console.log(selections)
         const IMMUTABLE_DEEP_COPY = JSON.parse(JSON.stringify(selections));
         for (const x in IMMUTABLE_DEEP_COPY){
             if(IMMUTABLE_DEEP_COPY[x] === 'Any' || IMMUTABLE_DEEP_COPY[x] === 'none'){
@@ -15,13 +16,24 @@ export const Option_Form = ({selections, setSelections, getStock, backgroundImag
             }
         }
         setShallowSelections(IMMUTABLE_DEEP_COPY)
-   }, [])
-
-
-   
+    }, [])
+    
+    
+    
     const handleSubmit = async (e)=>{
+        console.log(selections)
         e.preventDefault();
-        await getStock().then(()=>history.push('/search-results'))
+        const brokenValidators = [document.getElementById(`Min-Money--blank`), document.getElementById(`Max-Money--blank`), document.getElementById(`Max-Money--tooMuch`), document.getElementById(`Min-Money--tooLittle`) ];
+        const PERMIT_REQUEST = brokenValidators.filter((value)=> value !== null).length === 0;
+        setAllowReq(PERMIT_REQUEST);
+
+        if(allowReq){
+            await getStock()
+            history.push('/search-results')
+        }
+        else{
+            return
+        }
     }
 
 
@@ -111,6 +123,7 @@ export const Option_Form = ({selections, setSelections, getStock, backgroundImag
             ...selections,
             [name]: value
         });
+
     }
     
     let logo;

@@ -1,3 +1,6 @@
 #node_modules
 back_end/node_modules
 
+#db info
+back_end/db.js
+

@@ -3,15 +3,17 @@ import { Item_tile } from '../../components/item_tile/item_tile';
 import { Link, useHistory } from 'react-router-dom'
 import './results.scss'
 import { No_RESULTS } from '../../components/No_Results/no_results';
-export const Results_Page = ({location, PORT, inventory, backgroundImage, getStock, selections, setSelections}) => {
+export const Results_Page = ({location, PORT, inventory, backgroundImage, getStock, selections, setSelections, allowReq}) => {
 const history = useHistory();
     // console.log(selections, 'results')
 
 useEffect(()=>{
-    const INVENTORY_MAINTAIN = async () =>{
-        await getStock();
+    if(allowReq){
+        const INVENTORY_MAINTAIN = async () =>{
+            await getStock();
+        }
+        INVENTORY_MAINTAIN();
     }
-    INVENTORY_MAINTAIN();
 }, [])
 
   const [pageNum, setPageNum] = useState(1)
@@ -20,11 +22,7 @@ useEffect(()=>{
 const handleRedirect = (route)=> {
     if(route === '/options'){
         setSelections({
-            ...selections,
-            gender:'none',
-            product_type:'none',
-            size:'none',
-            brand:'none'
+            
         })
         return history.push(route)
     }else{
@@ -61,7 +59,7 @@ const handleRedirect = (route)=> {
   return (
     <section className="results_page" style={{backgroundImage:`url(${backgroundImage})`}}>
         
-     {inventory.length > 0 ? (
+     {allowReq && inventory.length > 0 ? (
     <div className="results_page__results">
         <div className="results_different_pages" >{[...Array(Math.ceil(inventory.length/results_cap)).keys()].map((num=>num+1)).map((page)=>(
             <button className={pageNum === page ? "active_page page_button" : "page_button"} onClick={()=>handlePage(page)}>{page}</button>
